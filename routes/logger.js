@@ -2,11 +2,13 @@ var url = require('url');
 var emptygif = require('emptygif');
 
 function log(string, referer, ua, ip) {
-    var msg = JSON.parse(string);
+    var msg = JSON.parse(decodeURI(string));
     var guid = msg[0];
     var errors = msg[1];
-    var can = msg[2][0];
-    var cant = msg[2][0];
+    if (msg.length === 3) {
+        var can = msg[2][0];
+        var cant = msg[2][1];
+    }
     console.log(guid, errors, referer, ua, ip, can, cant);
 }
 
