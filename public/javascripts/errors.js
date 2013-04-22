@@ -62,7 +62,7 @@ function parseModernizr(Modernizr) {
     if (!Modernizr) return;
     var output = [[], []];
     for (var key in Modernizr) {
-        if (Modernizr.hasOwnProperty(key) && typeof(Modernizr[key]) !== "function") {
+        if (Modernizr.hasOwnProperty(key) && typeof(Modernizr[key]) !== 'function' && key.slice(0, 1) !== '_') {
             if (Modernizr[key]) {
                 output[0].push(key);
             } else {
