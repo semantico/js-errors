@@ -1,4 +1,5 @@
 require.config({
+    baseUrl: '/',
     paths: {
         domready: 'components/domready/ready',
         mocha: 'components/mocha/mocha',
@@ -21,7 +22,7 @@ require(['mocha', 'chai'], function (mocha, chai) {
     mocha.setup('bdd');
 
     var specs = ['cookies'].reduce(function (arr, val) {
-        return arr.concat('tests/spec/' + val);
+        return arr.concat('javascripts/tests/spec/' + val);
     }, []);
 
     require(specs, function () {
