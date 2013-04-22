@@ -26,8 +26,6 @@ if (typeof JSON === "undefined" || JSON === null) {
     }
 }
 
-// document ready shim - https://github.com/ded/domready/blob/master/src/ready.js
-
 function s4() {
     return Math.floor((1 + Math.random()) * 0x10000).toString(16).substr(1);
 }
@@ -37,16 +35,16 @@ function guid() {
 }
 
 var COOKIE_KEY = '__err__';
-var FETCH_COOKIE_RE = new RegExp('(?:(?:^|.*;\\s*)' + cookieKey + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*)|.*");
+var FETCH_COOKIE_RE = new RegExp('(?:(?:^|.*;\\s*)' + COOKIE_KEY + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*)|.*");
 
 function getId() {
-    return document.cookie.replace(fetchCookieRE, "$1") || null;
+    return document.cookie.replace(FETCH_COOKIE_RE, "$1") || null;
 }
 
 function setId(id) {
     var future = new Date();
     future.setDate(future.getDate() + 14);
-    document.cookie = cookieKey + '=' + escape(id) + '; expires=' escape(future.toGMTString());
+    document.cookie = COOKIE_KEY + '=' + escape(id) + '; expires=' + escape(future.toGMTString());
     return id;
 }
 
@@ -115,6 +113,7 @@ function error(msg, url, line) {
 
 var URL = 'http://192.168.100.57:3000/';
 var PARAM = 'q';
+var body;
 
 function get(json) {
     body = body || document.getElementsByTagName('body')[0];
@@ -158,7 +157,7 @@ function send(json) {
 
 function load() {
     if (hasLocalStorage) {
-        var queue = localStorage.getItem(COOKIE_KEY):
+        var queue = localStorage.getItem(COOKIE_KEY);
         localStorage.setItem(COOKIE_KEY, null);
         if (queue) {
             return send(createMsg(queue));
@@ -166,6 +165,7 @@ function load() {
     }
 }
 
-domReady(load);
+domready(load);
 
 window.onerror = error;
+
