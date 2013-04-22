@@ -1,0 +1,7 @@
+{
+  "name": "js-error",
+  "version": "0.0.0",
+  "dependencies": {
+    "domready": "*"
+  }
+}
