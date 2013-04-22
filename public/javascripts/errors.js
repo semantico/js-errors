@@ -158,7 +158,7 @@ function send(json) {
 function load() {
     if (hasLocalStorage) {
         var queue = localStorage.getItem(COOKIE_KEY);
-        localStorage.setItem(COOKIE_KEY, null);
+        localStorage.removeItem(COOKIE_KEY);
         if (queue) {
             return send(createMsg(queue));
         }
