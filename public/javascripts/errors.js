@@ -165,6 +165,12 @@ function load() {
     }
 }
 
+if (domready === undefined) {
+    function domready(fn) {
+        window.onload = fn;
+    }
+}
+
 domready(load);
 
 window.onerror = error;
