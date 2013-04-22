@@ -1,13 +1,13 @@
 var url = require('url');
 var emptygif = require('emptygif');
 
-function log(string, ua, ip) {
-    console.log(string, ua, ip);
+function log(string, referer, ua, ip) {
+    console.log(string, referer, ua, ip);
 }
 
 exports.post = function (req, res) {
     process.nextTick(function () {
-        log(req.body._q, req.headers['user-agent'], req.connection.remoteAddress);
+        log(req.body._q, req.headers['referer'], req.headers['user-agent'], req.connection.remoteAddress);
     });
     res.setHeader('Cache-Control', 'public, max-age=0');
     return res.send('');
@@ -16,7 +16,7 @@ exports.post = function (req, res) {
 exports.get = function (req, res) {
     var query = url.parse(req.url, true).query;
     process.nextTick(function () {
-        log(query._q, req.headers['user-agent'], req.connection.remoteAddress);
+        log(query._q, req.headers['referer'], req.headers['user-agent'], req.connection.remoteAddress);
     });
 
     emptygif.sendEmptyGif(req, res, {
