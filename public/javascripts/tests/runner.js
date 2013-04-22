@@ -1,9 +1,9 @@
 require.config({
-    baseUrl: 'javascripts',
     paths: {
         domready: 'components/domready/ready',
         mocha: 'components/mocha/mocha',
-        chai: 'components/chai/chai'
+        chai: 'components/chai/chai',
+        errors: 'javascripts/errors'
     },
     shim: {
         mocha: {

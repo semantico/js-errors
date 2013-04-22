@@ -2,7 +2,7 @@ var fs = require('fs');
 var UglifyJS = require("uglify-js");
 
 var files = [
-    './public/javascripts/components/domready/ready.js',
+    './public/components/domready/ready.js',
     './public/javascripts/errors.js'
 ];
 
