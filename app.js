@@ -43,7 +43,6 @@ app.get('/', logger.get);
 app.post('/', logger.post);
 app.param('buster', /^\d+$/);
 app.get('/:buster/errors.js', script.index);
-app.get('/errors.js', script.original);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
