@@ -56,18 +56,20 @@ var hasLocalStorage = (function () {
     }
 })();
 
-function parseModernizr(Modernizr) {
-    if (!Modernizr) return;
-    var output = [[], []];
-    for (var key in Modernizr) {
+function parseModernizr() {
+    if (!window.Modernizr) return null;
+    var output = ['', ''];
+    for (var key in window.Modernizr) {
         if (Modernizr.hasOwnProperty(key) && typeof(Modernizr[key]) !== 'function' && key.slice(0, 1) !== '_') {
             if (Modernizr[key]) {
-                output[0].push(key);
+                output[0] += ',' + key;
             } else {
-                output[1].push(key);
+                output[1] += ',' + key;
             }
         }
     }
+    output[0] = output[0].slice(1);
+    output[1] = output[1].slice(1);
     return output;
 }
 
@@ -97,40 +99,35 @@ var MAX_ERRORS = 40;
 
 function error(msg, url, line) {
     if (!isValid(msg)) return;
-    if (hasLocalStorage)
-        if (errorCount < MAX_ERRORS) {
-            queue.push([msg, url, line]);
-            localStorage.setItem(COOKIE_KEY, JSON.stringify(queue));
-            return errorCount++;
-        }
-        return;
+    if (errorCount > MAX_ERRORS) return;
+    if (hasLocalStorage) {
+        queue.push([msg, url, line]);
+        localStorage.setItem(COOKIE_KEY, JSON.stringify(queue));
+        return errorCount++;
     }
     if (errorCount === 0) {
         send(createMsg([[msg, url, line]]));
         return errorCount++;
     }
-    if (errorCount < MAX_ERRORS) {
-        queue.push([msg, url, line]);
-        if (timer === 0) {
-            timer = setTimeout(function () {
-                send(createMsg(queue));
-                queue = [];
-                timer = 0;
-            }, 2500);
-        }
-        return errorCount++;
+    queue.push([msg, url, line]);
+    if (timer === 0) {
+        timer = setTimeout(function () {
+            send(createMsg(queue));
+            queue = [];
+            timer = 0;
+        }, 2500);
     }
+    return errorCount++;
 }
 
 var URL = 'http://192.168.100.57:3000/';
 var PARAM = 'q';
 var body;
+var TIMEOUT = 5000;
 
 function get(json) {
-    body = body || document.getElementsByTagName('body')[0];
     var image = new Image();
-    image.src = URL + '?' + PARAM + '=' + json;
-    body.appendChild(image);
+    image.src = URL + '?' + PARAM + '=' + encodeURI(json);
 }
 
 var IFRAME_ID = 'err-send__';
@@ -156,23 +153,23 @@ function post(json) {
     iframeCount++;
     setTimeout(function () {
         iframe.parent.removeChild(iframe);
-    }, 5000);
+    }, TIMEOUT);
 }
 
 function send(json) {
-    if (json.length < 1995) {
+    if (json.length < 1900) {
         return get(json);
     }
     post(json);
 }
 
 function load() {
-    if (hasLocalStorage) {
-        var queue = localStorage.getItem(COOKIE_KEY);
-        localStorage.removeItem(COOKIE_KEY);
-        if (queue) {
-            return send(createMsg(queue));
-        }
+    if (!hasLocalStorage) return;
+    var queue = localStorage.getItem(COOKIE_KEY);
+    localStorage.removeItem(COOKIE_KEY);
+    console.log(queue);
+    if (queue) {
+        return send(createMsg(JSON.parse(queue)));
     }
 }
 
