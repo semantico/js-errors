@@ -140,6 +140,7 @@ function post(json) {
     iframe.style.display = 'none';
     iframe.src = 'javascript:';
     var html = '<form method="post" action="' + URL + '">' +
+        '<textarea name="r">' + location.href + '</textarea>' +
         '<textarea name="' + PARAM + '">' + json + '</textarea>' +
         '</form>' +
         '<script>onload=function(){setTimeout(function(){document.forms[0].submit()},10)}\x3c/script>';

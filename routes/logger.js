@@ -15,7 +15,7 @@ function log(string, referer, ua, ip) {
 exports.post = function (req, res) {
     if (req.body.q !== undefined && req.body.q !== '') {
         process.nextTick(function () {
-            log(req.body.q, req.headers['referer'], req.headers['user-agent'], req.connection.remoteAddress);
+            log(req.body.q, req.body.r, req.headers['user-agent'], req.connection.remoteAddress);
         });
     }
     res.setHeader('Cache-Control', 'public, max-age=0');
