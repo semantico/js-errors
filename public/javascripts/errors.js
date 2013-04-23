@@ -48,8 +48,6 @@ function setId(id) {
     return id;
 }
 
-var id = getId() || setId(guid());
-
 var hasLocalStorage = (function () {
     try {
         return ('localStorage' in window && window['localStorage'] !== null);
@@ -78,10 +76,16 @@ function isValid(msg) {
 }
 
 var queue = [];
+var id = getId();
 
 function createMsg(errorArray) {
+    var sendModernizr = false;
+    if (id === null) {
+        id = setId(guid());
+        sendModernizr = true;
+    }
     var msg = [id, errorArray];
-    if (window.Modernizr) {
+    if (sendModernizr && typeof window.Modernizr !== 'undefined' && window.Modernizr !== null) {
         msg.push(parseModernizr(window.Modernizr));
     }
     return JSON.stringify(msg);
@@ -89,26 +93,33 @@ function createMsg(errorArray) {
 
 var timer = 0;
 var errorCount = 0;
+var MAX_ERRORS = 40;
 
 function error(msg, url, line) {
     if (!isValid(msg)) return;
-    if (hasLocalStorage) {
-        queue.push([msg, url, line]);
-        return localStorage.setItem(COOKIE_KEY, JSON.stringify(queue));
+    if (hasLocalStorage)
+        if (errorCount < MAX_ERRORS) {
+            queue.push([msg, url, line]);
+            localStorage.setItem(COOKIE_KEY, JSON.stringify(queue));
+            return errorCount++;
+        }
+        return;
     }
     if (errorCount === 0) {
-        errorCount++;
-        return send(createMsg([[msg, url, line]]));
+        send(createMsg([[msg, url, line]]));
+        return errorCount++;
     }
-    queue.push([msg, url, line]);
-    if (timer === 0) {
-        timer = setTimeout(function () {
-            send(createMsg(queue));
-            queue = [];
-            timer = 0;
-        }, 2500);
+    if (errorCount < MAX_ERRORS) {
+        queue.push([msg, url, line]);
+        if (timer === 0) {
+            timer = setTimeout(function () {
+                send(createMsg(queue));
+                queue = [];
+                timer = 0;
+            }, 2500);
+        }
+        return errorCount++;
     }
-    errorCount++;
 }
 
 var URL = 'http://192.168.100.57:3000/';
