@@ -13,7 +13,7 @@ function log(string, referer, ua, ip) {
 }
 
 exports.post = function (req, res) {
-    if (req.body.q !== undefined || req.body.q !== '') {
+    if (req.body.q !== undefined && req.body.q !== '') {
         process.nextTick(function () {
             log(req.body.q, req.headers['referer'], req.headers['user-agent'], req.connection.remoteAddress);
         });
@@ -24,7 +24,7 @@ exports.post = function (req, res) {
 
 exports.get = function (req, res) {
     var query = url.parse(req.url, true).query;
-    if (query.q !== undefined || query.q !== '') {
+    if (query.q !== undefined && query.q !== '') {
         process.nextTick(function () {
             log(query.q, req.headers['referer'], req.headers['user-agent'], req.connection.remoteAddress);
         });
