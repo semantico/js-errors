@@ -11,9 +11,7 @@ define(['stringify'], function (stringify) {
         });
 
         it('should be a function', function () {
-
             stringify.should.be.a('function');
-
         });
 
         it('should handle a simple array of numbers', function (){
