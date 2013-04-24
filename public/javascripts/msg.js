@@ -1,12 +1,8 @@
 define(['stringify', 'id', 'process-modernizr'], function (stringify, id, processModernizr) {
 
-    if (typeof JSON === "undefined" && JSON === null) {
-        var JSON = {};
+    if (typeof window.JSON === "undefined" && window.JSON === null) {
+        window.JSON = {};
         JSON.stringify = stringify;
-    }
-
-    function isValid(msg) {
-        return msg !== 'Script Error.';
     }
 
     function create(errors) {
