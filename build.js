@@ -1,7 +1,8 @@
 ({
 
     baseUrl: './public/javascripts',
-    mainConfigFile: './public/javascripts/errors',
+    name: '../../node_modules/almond/almond',
+    include: 'errors',
     paths: {
         domready: '../components/requirejs-domready/domReady'
     },
