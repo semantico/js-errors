@@ -20,7 +20,7 @@ require(['mocha', 'chai'], function (mocha, chai) {
 
     mocha.setup('bdd');
 
-    var specs = ['stringify', 'id', 'process-modernizr'].reduce(function (arr, val) {
+    var specs = ['stringify', 'id', 'process-modernizr', 'msg'].reduce(function (arr, val) {
         return arr.concat('tests/spec/' + val);
     }, []);
 
