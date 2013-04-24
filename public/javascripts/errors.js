@@ -1,9 +1,3 @@
-require.config({
-    paths: {
-        domready: '../components/domready/ready'
-    }
-});
-
 define(['domready', 'send', 'msg'], function (domready, send, msg) {
 
     try {
@@ -57,7 +51,7 @@ define(['domready', 'send', 'msg'], function (domready, send, msg) {
 
     // bindings
     domready(load);
-    window.onerror = error;
+    this.onerror = error;
 
 });
 

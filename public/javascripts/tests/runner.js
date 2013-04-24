@@ -1,7 +1,7 @@
 require.config({
     baseUrl: '/javascripts',
     paths: {
-        domready: '../components/domready/ready',
+        domready: '../components/requirejs-domready/domReady',
         mocha: '../components/mocha/mocha',
         chai: '../components/chai/chai'
     },
