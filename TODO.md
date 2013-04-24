@@ -9,6 +9,6 @@
 
 * Docs
 * JSHint
-* Set up [http://karma-runner.github.io/](Karma)
+* Set up [Karma](http://karma-runner.github.io/)
 * End to end testing
 * Refactor node parts into smaller modules
