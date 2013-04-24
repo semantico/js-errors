@@ -1,6 +1,5 @@
 ## High
 
-* Build script (using [Almond](https://github.com/jrburke/almond))
 * Config redis
 * Cache modenizr in redis
 * Config local logstash
