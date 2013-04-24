@@ -66,6 +66,14 @@ define(['msg'], function (msg) {
                 msg.json(singleMsg).should.be.a('string');
             });
 
+            it('should return the same string as JSON#stringify the result of #create', function (){
+                // first will be ignored because it contains modernizr
+                var first = msg.create(singleMsg);
+                var second = msg.json(singleMsg);
+                var third = msg.create(singleMsg);
+                second.should.equal(JSON.stringify(third));
+            });
+
         });
 
     });
