@@ -3,7 +3,7 @@ define(['msg'], function (msg) {
     var COOKIE_KEY = '__err__';
 
     function delCookie() {
-        document.cookie = COOKIE_KEY + '=deleted; expires=' + new Date(0).toUTCString();
+        document.cookie = COOKIE_KEY + '=delete; expires=' + new Date(0).toUTCString() + '; path=' + escape('/');
     }
 
     describe('msg', function () {
