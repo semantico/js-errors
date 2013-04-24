@@ -3,7 +3,7 @@ define(['id'], function (id) {
     var COOKIE_KEY = '__err__';
 
     function delCookie() {
-        document.cookie = COOKIE_KEY + '=deleted; expires=' + new Date(0).toUTCString();
+        document.cookie = COOKIE_KEY + '; expires=' + escape(new Date(0).toUTCString()) + '; path=' + escape('/');
     }
 
     describe('id', function () {

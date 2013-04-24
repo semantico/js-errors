@@ -19,7 +19,7 @@ define(function () {
         var id = guid();
         var future = new Date();
         future.setDate(future.getDate() + 14);
-        document.cookie = COOKIE_KEY + '=' + escape(id) + '; expires=' + escape(future.toGMTString());
+        document.cookie = COOKIE_KEY + '=' + escape(id) + '; expires=' + escape(future.toGMTString()) + '; path=' + escape('/');
         return id;
     }
 
