@@ -43,7 +43,31 @@ define(['msg'], function (msg) {
                 msg.create(singleMsg).length.should.equal(3);
             });
 
+            it('should return the messages as the second argument', function () {
+                expect(msg.create(singleMsg)).to.have.property('1', singleMsg);
+                expect(msg.create(multiMsg)).to.have.property('1', multiMsg);
+            });
+
+            it('should return an array with length 3 with Modernizr on 1st requests' +
+               ' and return an array with length 2 on seubsequent requests', function () {
+                var first = msg.create(singleMsg);
+                first.length.should.equal(3);
+                var second = msg.create(singleMsg);
+                second.length.should.equal(2);
+                var third = msg.create(singleMsg);
+                third.length.should.equal(2);
+            });
+
         });
+
+        describe('#json', function () {
+
+            it('should return a string', function (){
+                msg.json(singleMsg).should.be.a('string');
+            });
+
+        });
+
     });
 
 });
