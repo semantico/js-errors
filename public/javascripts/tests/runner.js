@@ -1,10 +1,9 @@
 require.config({
-    baseUrl: '/',
+    baseUrl: '/javascripts',
     paths: {
-        domready: 'components/domready/ready',
-        mocha: 'components/mocha/mocha',
-        chai: 'components/chai/chai',
-        errors: 'javascripts/errors'
+        domready: '../components/domready/ready',
+        mocha: '../components/mocha/mocha',
+        chai: '../components/chai/chai'
     },
     shim: {
         mocha: {
@@ -21,8 +20,8 @@ require(['mocha', 'chai'], function (mocha, chai) {
 
     mocha.setup('bdd');
 
-    var specs = ['cookies'].reduce(function (arr, val) {
-        return arr.concat('javascripts/tests/spec/' + val);
+    var specs = ['stringify', 'id', 'process-modernizr'].reduce(function (arr, val) {
+        return arr.concat('tests/spec/' + val);
     }, []);
 
     require(specs, function () {
