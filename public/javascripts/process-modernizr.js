@@ -4,7 +4,7 @@ define(function () {
         if (!mod) return null;
         var output = ['', ''];
         for (var key in mod) {
-            if (mod.hasOwnProperty(key) && typeof(mod[key]) !== 'function' && key.slice(0, 1) !== '_') {
+            if (mod.hasOwnProperty(key) && typeof(mod[key]) !== 'function' && key.charAt(0) !== '_') {
                 if (mod[key]) {
                     output[0] += ',' + key;
                 } else {
