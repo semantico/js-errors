@@ -2,7 +2,7 @@ define(['stringify', 'id', 'process-modernizr'], function (stringify, id, proces
 
     if (typeof window.JSON === "undefined" && window.JSON === null) {
         window.JSON = {};
-        JSON.stringify = stringify;
+        window.JSON.stringify = stringify;
     }
 
     function create(errors) {
