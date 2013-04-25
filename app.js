@@ -5,7 +5,6 @@
 
 var express = require('express');
 var logger = require('./routes/logger');
-var script = require('./routes/script');
 var http = require('http');
 var path = require('path');
 
@@ -41,8 +40,6 @@ app.param(function(name, fn){
 
 app.get('/', logger.get);
 app.post('/', logger.post);
-app.param('buster', /^\d+$/);
-app.get('/:buster/errors.js', script.index);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
