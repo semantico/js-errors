@@ -1,14 +1,8 @@
-define(function () {
-
-    var URL = 'http://localhost:3000/';
-    var PARAM = 'q';
-    var REFERER_PARAM = 'r';
-    var TIMEOUT = 5000;
-    var IFRAME_ID = 'err-send__';
+define(['globals'], function (globals) {
 
     function get(json) {
         var image = new Image();
-        image.src = URL + '?' + PARAM + '=' + encodeURI(json);
+        image.src = globals.URL + '?' + globals.QUERY_PARAM + '=' + encodeURI(json);
     }
 
     var body;
@@ -17,18 +11,18 @@ define(function () {
     function post(json) {
         body = body || document.getElementsByTagName('body')[0];
         var iframe = document.createElement('iframe');
-        iframe.id = iframe.name = IFRAME_ID + iframeCount;
+        iframe.id = iframe.name = globals.IFRAME_ID + iframeCount;
         iframe.style.display = 'none';
         iframe.src = 'javascript:';
         var html = '<form method="post" action="' + URL + '">' +
-            '<textarea name="' + REFERER_PARAM + '">' + location.href + '</textarea>' +
-            '<textarea name="' + PARAM + '">' + json + '</textarea>' +
+            '<textarea name="' + globals.REFERER_PARAM + '">' + location.href + '</textarea>' +
+            '<textarea name="' + globals.QUERY_PARAM + '">' + json + '</textarea>' +
             '</form>' +
             '<script>onload=function(){setTimeout(function(){document.forms[0].submit()},10)}\x3c/script>';
         body.appendChild(iframe);
         var iDoc = iframe.contentWindow || iframe.contentDocument;
         iDoc = iDoc.document || iDoc;
-        iDoc = iDoc || document.frames[IFRAME_ID + iframeCount].document;
+        iDoc = iDoc || document.frames[globals.IFRAME_ID + iframeCount].document;
         iDoc.open();
         iDoc.write(html);
         iDoc.close()

@@ -1,13 +1,10 @@
-require(['domready', 'send', 'msg'], function (domready, send, msg) {
+require(['globals', 'domready', 'send', 'msg'], function (globals, domready, send, msg) {
 
     try {
         var hasLocalStorage = ('localStorage' in window && window['localStorage'] !== null);
     } catch (e) {
         var hasLocalStorage = false;
     }
-
-    var MAX_ERRORS = 40;
-    var LS_KEY = '__err__';
 
     function isValid(msg) {
         return msg !== 'Script Error.';
@@ -19,10 +16,10 @@ require(['domready', 'send', 'msg'], function (domready, send, msg) {
 
     function error(text, url, line) {
         if (!isValid(msg)) return;
-        if (errorCount > MAX_ERRORS) return;
+        if (errorCount > globals.MAX_ERRORS) return;
         if (hasLocalStorage) {
             queue.push([text, url, line]);
-            localStorage.setItem(LS_KEY, JSON.stringify(queue));
+            localStorage.setItem(globals.LS_KEY, JSON.stringify(queue));
             return errorCount++;
         }
         if (errorCount === 0) {
@@ -42,8 +39,8 @@ require(['domready', 'send', 'msg'], function (domready, send, msg) {
 
     function load() {
         if (!hasLocalStorage) return;
-        var queue = localStorage.getItem(LS_KEY);
-        localStorage.removeItem(LS_KEY);
+        var queue = localStorage.getItem(globals.LS_KEY);
+        localStorage.removeItem(globals.LS_KEY);
         if (queue) {
             send(msg.json(JSON.parse(queue)));
         }

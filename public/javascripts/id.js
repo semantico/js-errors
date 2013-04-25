@@ -1,7 +1,6 @@
-define(function () {
+define(['globals'], function (globals) {
 
-    var COOKIE_KEY = '__err__';
-    var FETCH_COOKIE_RE = new RegExp('(?:(?:^|.*;\\s*)' + COOKIE_KEY + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*)|.*");
+    var FETCH_COOKIE_RE = new RegExp('(?:(?:^|.*;\\s*)' + globals.COOKIE_KEY + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*)|.*");
 
     function s4() {
         return Math.floor((1 + Math.random()) * 0x10000).toString(16).substr(1);
@@ -19,7 +18,7 @@ define(function () {
         var id = guid();
         var future = new Date();
         future.setDate(future.getDate() + 14);
-        document.cookie = COOKIE_KEY + '=' + escape(id) + '; expires=' + escape(future.toGMTString()) + '; path=' + escape('/');
+        document.cookie = globals.COOKIE_KEY + '=' + escape(id) + '; expires=' + escape(future.toGMTString()) + '; path=' + escape('/');
         return id;
     }
 
