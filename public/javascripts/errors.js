@@ -51,7 +51,7 @@ define(['domready', 'send', 'msg'], function (domready, send, msg) {
 
     // bindings
     domready(load);
-    this.onerror = error;
+    window.onerror = error;
 
 });
 

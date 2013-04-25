@@ -1,8 +1,8 @@
 define(['stringify', 'id', 'process-modernizr'], function (stringify, id, processModernizr) {
 
-    if (typeof this.JSON === "undefined" && this.JSON === null) {
-        this.JSON = {};
-        this.JSON.stringify = stringify;
+    if (typeof window.JSON === "undefined" && window.JSON === null) {
+        window.JSON = {};
+        window.JSON.stringify = stringify;
     }
 
     function create(errors) {
