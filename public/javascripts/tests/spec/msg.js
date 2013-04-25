@@ -40,7 +40,8 @@ define(['msg'], function (msg) {
             });
 
             it('should return an array of length 3 with Modernizr', function (){
-                msg.create(singleMsg).length.should.equal(3);
+                var first = msg.create(singleMsg)
+                first.length.should.equal(3);
             });
 
             it('should return the messages as the second argument', function () {
@@ -49,7 +50,7 @@ define(['msg'], function (msg) {
             });
 
             it('should return an array with length 3 with Modernizr on 1st requests' +
-               ' and return an array with length 2 on seubsequent requests', function () {
+               ' and return an array with length 2 on subsequent requests', function () {
                 var first = msg.create(singleMsg);
                 first.length.should.equal(3);
                 var second = msg.create(singleMsg);
