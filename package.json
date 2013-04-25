@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "js-errors",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -13,6 +13,10 @@
     "redis": "0.8.3",
     "requirejs": "2.1.5",
     "almond": "0.2.5",
-    "underscore": "1.4.4"
+    "underscore": "1.4.4",
+    "bower": "0.8.6"
+  },
+  "scripts": {
+    "start": "node node_modules/bower/bin/bower install && node node_modules/requirejs/bin/r.js -o build.js && node app.js"
   }
 }
