@@ -1,4 +1,4 @@
-define(['domready', 'send', 'msg'], function (domready, send, msg) {
+require(['domready', 'send', 'msg'], function (domready, send, msg) {
 
     try {
         var hasLocalStorage = ('localStorage' in window && window['localStorage'] !== null);

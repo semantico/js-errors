@@ -1,12 +1,17 @@
 ({
 
     baseUrl: './public/javascripts',
-    name: '../../node_modules/almond/almond',
-    include: 'errors',
+    include: 'almond',
+    name: 'errors',
+    mainConfigFile: './public/javascripts/load.js',
     paths: {
-        domready: '../components/requirejs-domready/domReady'
+        almond: '../../node_modules/almond/almond',
+        domready: '../components/requirejs-domready/domReady',
+        requireLib: '../../node_modules/requirejs/require'
     },
     out: './public/javascripts/errors.min.js',
-    optimize: 'uglify2'
+    optimize: 'uglify2',
+    wrap: true,
+    preserveLicenseComments: false
 
 })
