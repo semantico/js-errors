@@ -1,7 +1,5 @@
 ## High
 
-* Config redis
-* Cache modenizr in redis
 * Config local logstash
 * Send msgs over gelf
 
