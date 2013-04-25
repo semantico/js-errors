@@ -1,6 +1,6 @@
 define(function () {
 
-    var URL = 'http://192.168.100.57:3000/';
+    var URL = 'http://localhost:3000/';
     var PARAM = 'q';
     var REFERER_PARAM = 'r';
     var TIMEOUT = 5000;
