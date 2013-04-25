@@ -2,11 +2,18 @@
 <html>
     <head>
         <script src="javascripts/errors.min.js"></script>
-        <script src="components/modernizr/modernizr.js"></script>
+        <!--<script src="components/modernizr/modernizr.js"></script>-->
     </head>
     <body>
-        <script>alert(x)</script>
-        <script>throw new Error</script>
         <script>for(;)</script>
+        <button id="x">test</button>
+        <script>
+            window.x.onclick = function () {
+                console.log(something.does.not.exist);
+            };
+            setTimeout(function () {
+                window.x.click();
+            }, 2000);
+        </script>
     </body>
 </html>
