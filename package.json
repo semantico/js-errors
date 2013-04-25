@@ -21,6 +21,7 @@
     "npm": "1.2.18"
   },
   "scripts": {
-    "start": "node node_modules/bower/bin/bower install && node node_modules/requirejs/bin/r.js -o build.js && node app.js"
+    "postinstall": "node node_modules/bower/bin/bower install && node node_modules/requirejs/bin/r.js -o build.js",
+    "start":  "node app.js"
   }
 }
