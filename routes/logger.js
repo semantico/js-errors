@@ -7,6 +7,7 @@ var redisConfig = require('../config.js').redis;
 var client = redis.createClient.apply(this, redisConfig);
 
 var TWO_WEEKS = 14 * 24 * 60 * 60;
+var QUEUE = 'logstash';
 
 function template (guid, errors, referer, ua, ip) {
     return {
@@ -44,7 +45,7 @@ function processMsg (string, referer, ua, ip) {
 }
 
 function send (msg) {
-    console.log(msg);
+    client.rpush(QUEUE, JSON.stringify(msg));
 }
 
 function expand (tmpl) {
