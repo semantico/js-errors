@@ -11,11 +11,15 @@ var TWO_WEEKS = 14 * 24 * 60 * 60;
 function template (guid, errors, referer, ua, ip) {
     return {
         base: {
-            timestamp: Math.floor(new Date().getTime() / 1000),
-            id: guid,
-            referer: referer,
-            ua: ua,
-            ip: ip
+            '@timestamp': new Date().toISOString(),
+            '@type': 'browser-error',
+            '@tags': ['browser', 'js', 'error'],
+            '@source': referer,
+            '@fields': {
+                id: guid,
+                ua: ua,
+                ip: ip
+            }
         },
         errors: errors
     };
@@ -28,9 +32,14 @@ function processMsg (string, referer, ua, ip) {
         var errors = input[1];
         var tmpl = template(guid, errors, referer, ua, ip);
         if (input.length === 3) {
-            return save(guid, input[2], tmpl);
+            if (_.isArray(input[2])) {
+                return save(guid, input[2], tmpl);
+            } else {
+                return check(guid, tmpl);
+            }
+        } else {
+            return expand(tmpl);
         }
-        return check(guid, tmpl);
     });
 }
 
@@ -41,9 +50,11 @@ function send (msg) {
 function expand (tmpl) {
     tmpl.errors.forEach(function (el) {
         send(_.extend({}, tmpl.base, {
-            msg: el[0],
-            file: el[1],
-            line: el[2]
+            '@message': el[0],
+            '@fields': {
+                script: el[1],
+                line: el[2]
+            }
         }));
     });
 }
@@ -51,22 +62,22 @@ function expand (tmpl) {
 function save (id, modernizr, msg) {
     client.set(id, JSON.stringify(modernizr));
     client.expire(id, TWO_WEEKS);
-    msg.base.can = modernizr[0];
-    msg.base.cant = modernizr[1];
+    msg.base['@fields'].can = modernizr[0];
+    msg.base['@fields'].cant = modernizr[1];
     return expand(msg);
 }
 
 function check (id, msg) {
     client.get(id, function (err, reply) {
         if (err) {
-            return console.error("error response - " + err);
+            return console.error('error response - ' + err);
         }
         if (reply === null) {
             return expand(msg);
         }
         var modernizr = JSON.parse(reply);
-        msg.base.can = modernizr[0];
-        msg.base.cant = modernizr[1];
+        msg.base['@fields'].can = modernizr[0];
+        msg.base['@fields'].cant = modernizr[1];
         return expand(msg);
     });
 }

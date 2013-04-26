@@ -49,14 +49,17 @@ define(['msg'], function (msg) {
                 expect(msg.create(multiMsg)).to.have.property('1', multiMsg);
             });
 
-            it('should return an array with length 3 with Modernizr on 1st requests' +
-               ' and return an array with length 2 on subsequent requests', function () {
+            it('should return an array with the last item as an array on 1st request', function () {
                 var first = msg.create(singleMsg);
-                first.length.should.equal(3);
+                first.should.be.an('array');
+                first[2].should.be.an('array');
+            });
+
+            it('should return an array with the last item as an array on 1st request', function () {
+                var first = msg.create(singleMsg);
                 var second = msg.create(singleMsg);
-                second.length.should.equal(2);
-                var third = msg.create(singleMsg);
-                third.length.should.equal(2);
+                second.should.be.an('array');
+                second[2].should.be.an('string');
             });
 
         });

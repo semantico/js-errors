@@ -13,9 +13,14 @@ define(['stringify', 'id', 'process-modernizr'], function (stringify, id, proces
             sendModernizr = true;
         }
         var out = [currId, errors];
-        if (sendModernizr && typeof window.Modernizr !== 'undefined' && window.Modernizr !== null) {
-            out.push(processModernizr(window.Modernizr));
-            return out;
+        if (typeof window.Modernizr !== 'undefined' && window.Modernizr !== null) {
+            if (sendModernizr) {
+                out.push(processModernizr(window.Modernizr));
+                return out;
+            } else {
+                out.push('m');
+                return out;
+            }
         } else {
             return out;
         }
