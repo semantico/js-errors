@@ -2,8 +2,9 @@ var url = require('url');
 var emptygif = require('emptygif');
 var redis = require('redis');
 var _ = require('underscore');
+var redisConfig = require('../config.js').redis;
 
-var client = redis.createClient();
+var client = redis.createClient.apply(this, redisConfig);
 
 var TWO_WEEKS = 14 * 24 * 60 * 60;
 
