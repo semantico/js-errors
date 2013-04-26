@@ -51,10 +51,10 @@ function expand (tmpl) {
     tmpl.errors.forEach(function (el) {
         send(_.extend({}, tmpl.base, {
             '@message': el[0],
-            '@fields': {
+            '@fields': _.extend({}, tmpl.base['@fields'], {
                 script: el[1],
                 line: el[2]
-            }
+            })
         }));
     });
 }
