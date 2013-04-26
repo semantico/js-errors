@@ -1,7 +1,7 @@
 ## High
 
-* Config local logstash
-* Send msgs over gelf
+* Look into mocha/chai alternatives
+* Deployment
 
 ## Low
 
@@ -9,4 +9,3 @@
 * JSHint
 * Set up [Karma](http://karma-runner.github.io/)
 * End to end testing
-* Refactor node parts into smaller modules
