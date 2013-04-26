@@ -7,6 +7,7 @@ var express = require('express');
 var logger = require('./routes/logger');
 var http = require('http');
 var path = require('path');
+var connect = require('connect');
 
 var app = express();
 
@@ -18,24 +19,11 @@ app.configure(function(){
     app.use(express.methodOverride());
     app.use(app.router);
     app.use(express.static(path.join(__dirname, 'public')));
+    app.use(connect.compress());
 });
 
 app.configure('development', function(){
     app.use(express.errorHandler());
-});
-
-app.param(function(name, fn){
-    if (fn instanceof RegExp) {
-        return function(req, res, next, val){
-            var captures;
-            if (captures = fn.exec(String(val))) {
-                req.params[name] = captures;
-                next();
-            } else {
-                next('route');
-            }
-        }
-    }
 });
 
 app.get('/', logger.get);
