@@ -1,6 +1,6 @@
 ## High
 
-* Look into mocha/chai alternatives
+* Port tests to jasmine
 * Deployment
 
 ## Low
