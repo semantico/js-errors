@@ -8,6 +8,8 @@ var client = redis.createClient.apply(this, redisConfig);
 
 var TWO_WEEKS = 14 * 24 * 60 * 60;
 var QUEUE = 'logstash';
+var PARAM = process.env.PARAM || 'q';
+var REFERER_PARAM = process.env.REFERER_PARAM || 'r';
 
 function template (guid, errors, referer, ua, ip) {
     return {
@@ -84,8 +86,8 @@ function check (id, msg) {
 }
 
 exports.post = function (req, res) {
-    if (req.body.q !== undefined && req.body.q !== '' && req.body.r !== undefined && req.body.r !== '') {
-        processMsg(req.body.q, req.body.r, req.headers['user-agent'], req.connection.remoteAddress);
+    if (req.body[PARAM] !== undefined && req.body[PARAM] !== '' && req.body[REFERER_PARAM] !== undefined && req.body[REFERER_PARAM] !== '') {
+        processMsg(req.body[PARAM], req.body[REFERER_PARAM], req.headers['user-agent'], req.connection.remoteAddress);
     }
     res.setHeader('Cache-Control', 'public, max-age=0');
     return res.send('ok');
@@ -93,8 +95,8 @@ exports.post = function (req, res) {
 
 exports.get = function (req, res) {
     var query = url.parse(req.url, true).query;
-    if (query.q !== undefined && query.q !== '') {
-        processMsg(query.q, req.headers['referer'], req.headers['user-agent'], req.connection.remoteAddress);
+    if (query[PARAM] !== undefined && query[PARAM] !== '') {
+        processMsg(query[PARAM], req.headers['referer'], req.headers['user-agent'], req.connection.remoteAddress);
     }
 
     emptygif.sendEmptyGif(req, res, {
