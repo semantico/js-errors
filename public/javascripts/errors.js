@@ -1,9 +1,10 @@
 require(['domready', 'send', 'msg'], function (domready, send, msg) {
 
+    var hasLocalStorage;
     try {
-        var hasLocalStorage = ('localStorage' in window && window['localStorage'] !== null);
+        hasLocalStorage = ('localStorage' in window && window['localStorage'] !== null);
     } catch (e) {
-        var hasLocalStorage = false;
+        hasLocalStorage = false;
     }
 
     var MAX_ERRORS = 40;
