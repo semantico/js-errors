@@ -42,3 +42,8 @@ Error message format:
         String: "m"
     ]
 
+# Sending messages
+
+When the script loads it detects if localStorage is available. If it is it logs any errors to localStorage and on page loads checks localStorage for errors to send.
+
+
