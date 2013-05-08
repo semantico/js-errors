@@ -1,31 +1,44 @@
+var components = '../components/';
+
 require.config({
     baseUrl: '/javascripts',
     paths: {
-        domready: '../components/requirejs-domready/domReady',
-        mocha: '../components/mocha/mocha',
-        chai: '../components/chai/chai'
+        domready: components + 'requirejs-domready/domReady',
+        jasmine: components + 'jasmine/lib/jasmine-core/jasmine',
+        'jasmine-html': components + 'jasmine/lib/jasmine-core/jasmine-html'
     },
     shim: {
-        mocha: {
-            exports: 'mocha'
+        jasmine: {
+            exports: 'jasmine'
+        },
+        'jasmine-html': {
+            deps: ['jasmine'],
+            exports: 'jasmine'
         }
     }
 });
 
-require(['mocha', 'chai'], function (mocha, chai) {
+require(['domready', 'jasmine-html'], function (domready, jasmine) {
 
-    window.assert = chai.assert;
-    window.should = chai.should();
-    window.expect = chai.expect;
+    var jasmineEnv = jasmine.getEnv();
+    jasmineEnv.updateInterval = 250;
 
-    mocha.setup('bdd');
+    var htmlReporter = new jasmine.HtmlReporter();
+    jasmineEnv.addReporter(htmlReporter);
 
-    var specs = ['stringify', 'id', 'process-modernizr', 'msg'].reduce(function (arr, val) {
-        return arr.concat('tests/spec/' + val);
-    }, []);
+    jasmineEnv.specFilter = function(spec) {
+        return htmlReporter.specFilter(spec);
+    };
+
+    var specs = ['stringify', 'id', 'process-modernizr', 'msg'];
+    for (var i = 0; i < specs.length; i++) {
+        specs[i] = 'tests/spec/' + specs[i];
+    }
 
     require(specs, function () {
-        mocha.run();
+        domready(function () {
+            jasmineEnv.execute();
+        });
     });
 
 });
