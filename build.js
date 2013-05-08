@@ -15,8 +15,9 @@
     preserveLicenseComments: false,
     onBuildRead: function (moduleName, path, contents) {
         var toReplace = {
-            ERROR_URL: 'https://errors.semantico.com',
-            PARAM: 'q'
+            ERROR_URL: process.env.ERROR_URL || 'http://localhost:3000/',
+            PARAM: process.env.PARAM || 'q',
+            REFERER_PARAM: process.env.REFERER_PARAM || 'r'
         };
         for (var key in toReplace) {
             var r = new RegExp(key + "[\ ]*=[\ ]*'(.*)'\;");
