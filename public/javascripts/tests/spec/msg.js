@@ -17,7 +17,6 @@ define(['msg'], function (msg) {
 
         var singleMsg;
         var multiMsg;
-        var toString = Object.prototype.toString;
 
         beforeEach(function () {
             delCookie();
@@ -32,11 +31,11 @@ define(['msg'], function (msg) {
         describe('.create()', function () {
 
             it('should be a function', function (){
-                expect(typeof msg.create).toBe('function');
+                expect(msg.create).toEqual(jasmine.any(Function));
             });
 
             it('should return an array', function (){
-                expect(toString.call(msg.create(singleMsg))).toMatch('Array');
+                expect(msg.create(singleMsg)).toEqual(jasmine.any(Array));
             });
 
             it('should return an array of length 2 with no Modernizr', function (){
@@ -59,15 +58,15 @@ define(['msg'], function (msg) {
 
             it('should return an array with the last item as an array on 1st request', function () {
                 var first = msg.create(singleMsg);
-                expect(toString.call(first)).toMatch('Array');
-                expect(toString.call(first[2])).toMatch('Array');
+                expect(first).toEqual(jasmine.any(Array));
+                expect(first[2]).toEqual(jasmine.any(Array));
             });
 
             it('should return an array with the last item as an array on 1st request', function () {
                 var first = msg.create(singleMsg);
                 var second = msg.create(singleMsg);
-                expect(toString.call(second)).toMatch('Array');
-                expect(typeof second[2]).toBe('string');
+                expect(second).toEqual(jasmine.any(Array));
+                expect(second[2]).toEqual(jasmine.any(String));
             });
 
         });
@@ -75,7 +74,7 @@ define(['msg'], function (msg) {
         describe('.json()', function () {
 
             it('should return a string', function (){
-                expect(typeof msg.json(singleMsg)).toBe('string');
+                expect(msg.json(singleMsg)).toEqual(jasmine.any(String));
             });
 
             it('should return the same string as JSON#stringify the result of #create', function (){

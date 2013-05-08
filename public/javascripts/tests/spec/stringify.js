@@ -16,7 +16,7 @@ define(deps, function (stringify) {
         });
 
         it('should be a function', function () {
-            expect(typeof stringify).toBe('function');
+            expect(stringify).toEqual(jasmine.any(Function));
         });
 
         it('should handle a simple array of numbers', function (){

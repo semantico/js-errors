@@ -15,7 +15,7 @@ define(['id'], function (id) {
         describe('.get()', function () {
 
             it('should be a function', function () {
-                expect(typeof id.get).toBe('function');
+                expect(id.get).toEqual(jasmine.any(Function));
             });
 
             it('should return null when cookie is not set', function () {
@@ -27,7 +27,7 @@ define(['id'], function (id) {
         describe('.set()', function () {
 
             it('should be a function', function () {
-                expect(typeof id.set).toBe('function');
+                expect(id.set).toEqual(jasmine.any(Function));
             });
 
             it('should return the id when cookie has been set', function () {
