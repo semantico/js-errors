@@ -1,6 +1,6 @@
 define(function () {
 
-    var URL = 'http://localhost:3000/';
+    var ERROR_URL = 'http://localhost:3000/';
     var PARAM = 'q';
     var REFERER_PARAM = 'r';
     var TIMEOUT = 5000;
@@ -8,7 +8,7 @@ define(function () {
 
     function get(json) {
         var image = new Image();
-        image.src = URL + '?' + PARAM + '=' + encodeURI(json);
+        image.src = ERROR_URL + '?' + PARAM + '=' + encodeURI(json);
     }
 
     var body;
@@ -20,7 +20,7 @@ define(function () {
         iframe.id = iframe.name = IFRAME_ID + iframeCount;
         iframe.style.display = 'none';
         iframe.src = 'javascript:';
-        var html = '<form method="post" action="' + URL + '">' +
+        var html = '<form method="post" action="' + ERROR_URL + '">' +
             '<textarea name="' + REFERER_PARAM + '">' + location.href + '</textarea>' +
             '<textarea name="' + PARAM + '">' + json + '</textarea>' +
             '</form>' +
