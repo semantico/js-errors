@@ -1,8 +1,10 @@
 # Set up
 
 1. Install [node.js](http://nodejs.org/download/)
-2. Install [foreman](http://ddollar.github.io/foreman/) ```gem install foreman```
-3. Run the app ```foreman start```
+2. Install [redis](http://redis.io/) ```brew install redis```
+3. Run redis ```redis-server /usr/local/etc/redis.conf```
+4. Install [foreman](http://ddollar.github.io/foreman/) ```gem install foreman```
+5. Run the app ```foreman start```
 
 
 # Environment variables
