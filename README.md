@@ -39,7 +39,7 @@ Error messages are Arrays that are JSON.stringify'd and then sent as get or post
             String: can, // "blob,boxshadow,...,svg"
             String: can't // "blobbuilder,download,...,touch"
         ]
-        // If modernizr already sent, send a token indicating there is a modernizr ready to send
+        // If modernizr already sent, send a token indicating the server should try and get it from redis
         String: "m"
     ]
 
