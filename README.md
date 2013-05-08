@@ -71,3 +71,14 @@ Modernizr is a feature detection library that we use on most sites to help progr
 We parse the Modernizr object into an array of strings so that it is smaller when we send it to the server. We ignore and properties that are functions or begin with an underscore.
 
 When a message is sent to the server we check the ```window.Modernizr``` object exists. If it does and it's the first message we have sent to the server we send this processed version of Modernizr. If it's not the first time we have sent it, we send a string ```"m"``` so that the server knows to pull the Modernizr object out of Redis.
+
+## Sending messages
+
+Some assumptions:
+
+* Cross browser and backwards compatible
+* Errors will need to be sent cross domain
+* The length of the error message could be really large
+* No information has to be returned from requests
+
+We send get requests using an Image with a query string on the ```src``` attribute, and we send post requests with a hidden iframe containing a form.
