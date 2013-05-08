@@ -1,6 +1,5 @@
 ## High
 
-* Port tests to jasmine
 * Deployment
 
 ## Low
