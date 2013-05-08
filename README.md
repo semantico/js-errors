@@ -84,3 +84,8 @@ Some assumptions:
 We send get requests using an Image with a query string on the ```src``` attribute, and we send post requests with a hidden iframe containing a form. 
 
 The iframe post is slower than the get. Therefore when we send a message we check the length is less than 1900 and send a get. If it is larger we send a post.
+
+
+# Testing
+
+Tests use [jasmine](http://pivotal.github.io/jasmine/) and can be found at ```/tests/runner.html```
