@@ -21,15 +21,24 @@ Error messages are Arrays that are JSON.stringify'd and then sent as get or post
 Error message format:
 
     [
-        String: guid,
+        String: guid, // From cookie or generated
         Array: errors
         [
-            Array: message
+            Array: error message
             [
                 String: message
                 String: script url
                 Number: line number
             ]
         ],
+        // Optional modernizr
+        // If script has generated a guid send the modernizr object
+        Array: modernizr
+        [
+            String: can, // "blob,boxshadow,...,svg"
+            String: can't // "blobbuilder,download,...,touch"
+        ]
+        // If modernizr already sent, send a token indicating there is a modernizr ready to send
+        String: "m"
     ]
 
