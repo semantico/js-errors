@@ -66,9 +66,9 @@ There are two error reporting flows:
 
 ## Modernizr details
 
-Modernizr is a feature detection library that we use on most sites to help progressively enhance our sites. This information about the browswers capabilities is very useful when debugging.
+Modernizr is a feature detection library that we use on most sites, it contains details on the browsers capabilities.
 
-We parse the Modernizr object into an array of strings so that it is smaller when we send it to the server. We ignore and properties that are functions or begin with an underscore.
+We parse the Modernizr object into an array of strings so that it is smaller when we send it to the server. We ignore any properties that are functions or begin with an underscore.
 
 When a message is sent to the server we check the ```window.Modernizr``` object exists. If it does and it's the first message we have sent to the server we send this processed version of Modernizr. If it's not the first time we have sent it, we send a string ```"m"``` so that the server knows to pull the Modernizr object out of Redis.
 
@@ -81,4 +81,6 @@ Some assumptions:
 * The length of the error message could be really large
 * No information has to be returned from requests
 
-We send get requests using an Image with a query string on the ```src``` attribute, and we send post requests with a hidden iframe containing a form.
+We send get requests using an Image with a query string on the ```src``` attribute, and we send post requests with a hidden iframe containing a form. 
+
+The iframe post is slower than the get. Therefore when we send a message we check the length is less than 1900 and send a get. If it is larger we send a post.
