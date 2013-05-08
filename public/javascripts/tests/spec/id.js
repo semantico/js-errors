@@ -12,27 +12,27 @@ define(['id'], function (id) {
             delCookie();
         });
 
-        describe('#get', function () {
+        describe('.get()', function () {
 
             it('should be a function', function () {
-                id.get.should.be.a('function');
+                expect(typeof id.get).toBe('function');
             });
 
             it('should return null when cookie is not set', function () {
-                expect(id.get()).to.be.null;
+                expect(id.get()).toBe(null);
             });
 
         });
 
-        describe('#set', function () {
+        describe('.set()', function () {
 
             it('should be a function', function () {
-                id.set.should.be.a('function');
+                expect(typeof id.set).toBe('function');
             });
 
             it('should return the id when cookie has been set', function () {
                 var guid = id.set();
-                guid.should.equal(id.get())
+                expect(guid).toEqual(id.get())
             });
 
         });

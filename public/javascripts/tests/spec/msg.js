@@ -6,10 +6,18 @@ define(['msg'], function (msg) {
         document.cookie = COOKIE_KEY + '=delete; expires=' + new Date(0).toUTCString() + '; path=' + escape('/');
     }
 
+    function delWinProp(name) {
+        window[name] = undefined;
+        try {
+            delete window[name];
+        } catch (e) {}
+    }
+
     describe('msg', function () {
 
         var singleMsg;
         var multiMsg;
+        var toString = Object.prototype.toString;
 
         beforeEach(function () {
             delCookie();
@@ -21,53 +29,53 @@ define(['msg'], function (msg) {
             ];
         });
 
-        describe('#create', function () {
+        describe('.create()', function () {
 
             it('should be a function', function (){
-                msg.create.should.be.a('function');
+                expect(typeof msg.create).toBe('function');
             });
 
             it('should return an array', function (){
-                msg.create(singleMsg).should.be.an('array');
+                expect(toString.call(msg.create(singleMsg))).toMatch('Array');
             });
 
             it('should return an array of length 2 with no Modernizr', function (){
                 window._Modernizr = window.Modernizr;
-                delete window.Modernizr;
-                msg.create(singleMsg).length.should.equal(2);
+                delWinProp('Modernizr');
+                expect(msg.create(singleMsg).length).toBe(2);
                 window.Modernizr = window._Modernizr;
-                delete window._Modernizr;
+                delWinProp('_Modernizr');
             });
 
             it('should return an array of length 3 with Modernizr', function (){
                 var first = msg.create(singleMsg)
-                first.length.should.equal(3);
+                expect(first.length).toBe(3);
             });
 
             it('should return the messages as the second argument', function () {
-                expect(msg.create(singleMsg)).to.have.property('1', singleMsg);
-                expect(msg.create(multiMsg)).to.have.property('1', multiMsg);
+                expect(msg.create(singleMsg)[1]).toBe(singleMsg);
+                expect(msg.create(multiMsg)[1]).toBe(multiMsg);
             });
 
             it('should return an array with the last item as an array on 1st request', function () {
                 var first = msg.create(singleMsg);
-                first.should.be.an('array');
-                first[2].should.be.an('array');
+                expect(toString.call(first)).toMatch('Array');
+                expect(toString.call(first[2])).toMatch('Array');
             });
 
             it('should return an array with the last item as an array on 1st request', function () {
                 var first = msg.create(singleMsg);
                 var second = msg.create(singleMsg);
-                second.should.be.an('array');
-                second[2].should.be.an('string');
+                expect(toString.call(second)).toMatch('Array');
+                expect(typeof second[2]).toBe('string');
             });
 
         });
 
-        describe('#json', function () {
+        describe('.json()', function () {
 
             it('should return a string', function (){
-                msg.json(singleMsg).should.be.a('string');
+                expect(typeof msg.json(singleMsg)).toBe('string');
             });
 
             it('should return the same string as JSON#stringify the result of #create', function (){
@@ -75,7 +83,7 @@ define(['msg'], function (msg) {
                 var first = msg.create(singleMsg);
                 var second = msg.json(singleMsg);
                 var third = msg.create(singleMsg);
-                second.should.equal(JSON.stringify(third));
+                expect(second).toBe(JSON.stringify(third));
             });
 
         });

@@ -5,7 +5,8 @@ require.config({
     paths: {
         domready: components + 'requirejs-domready/domReady',
         jasmine: components + 'jasmine/lib/jasmine-core/jasmine',
-        'jasmine-html': components + 'jasmine/lib/jasmine-core/jasmine-html'
+        'jasmine-html': components + 'jasmine/lib/jasmine-core/jasmine-html',
+        json: components + 'json3/lib/json3'
     },
     shim: {
         jasmine: {
