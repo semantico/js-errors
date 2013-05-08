@@ -13,3 +13,23 @@
 * ```ERROR_URL```
 * ```PARAM```
 * ```REFERER_PARAM```
+
+
+# Error messages
+
+Error messages are Arrays that are JSON.stringify'd and then sent as get or post requests.
+Error message format:
+
+    [
+        String: guid,
+        Array: errors
+        [
+            Array: message
+            [
+                String: message
+                String: script url
+                Number: line number
+            ]
+        ],
+    ]
+
