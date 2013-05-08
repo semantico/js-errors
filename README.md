@@ -5,8 +5,11 @@
 3. Run the app ```foreman start```
 
 
-# Environment varibales
+# Environment variables
 
 * ```PORT```
 * ```REDIS_PORT```
 * ```REDIS_HOST```
+* ```ERROR_URL```
+* ```PARAM```
+* ```REFERER_PARAM```
