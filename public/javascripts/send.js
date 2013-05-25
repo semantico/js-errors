@@ -1,6 +1,6 @@
 define(function () {
 
-    var ERROR_URL = 'http://localhost:3000/';
+    var ERROR_URL = window['__err-url__'] || 'http://localhost:3000/';
     var PARAM = 'q';
     var REFERER_PARAM = 'r';
     var TIMEOUT = 5000;

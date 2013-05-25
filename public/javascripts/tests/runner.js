@@ -1,12 +1,11 @@
-var components = '../components/';
-
 require.config({
     baseUrl: '/javascripts',
     paths: {
-        domready: components + 'requirejs-domready/domReady',
-        jasmine: components + 'jasmine/lib/jasmine-core/jasmine',
-        'jasmine-html': components + 'jasmine/lib/jasmine-core/jasmine-html',
-        json: components + 'json3/lib/json3'
+        domready: '../components/requirejs-domready/domReady',
+        jasmine: '../components/jasmine/lib/jasmine-core/jasmine',
+        'jasmine-html': '../components/jasmine/lib/jasmine-core/jasmine-html',
+        json: '../components/json3/lib/json3',
+        jquery: '../components/jquery/jquery'
     },
     shim: {
         jasmine: {
@@ -31,7 +30,7 @@ require(['domready', 'jasmine-html'], function (domready, jasmine) {
         return htmlReporter.specFilter(spec);
     };
 
-    var specs = ['stringify', 'id', 'process-modernizr', 'msg'];
+    var specs = ['stringify', 'id', 'process-modernizr', 'msg', 'send'];
     for (var i = 0; i < specs.length; i++) {
         specs[i] = 'tests/spec/' + specs[i];
     }
