@@ -1,3 +1,7 @@
+# js-errors
+
+Log your client-side JavaScript errors in logstash. Currently uses redis as a queue.
+
 # Set up
 
 1. Install [node.js](http://nodejs.org/download/)
