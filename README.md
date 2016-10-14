@@ -94,4 +94,4 @@ The iframe post is slower than the get. Therefore when we send a message we chec
 
 # Testing
 
-Tests use [jasmine](http://pivotal.github.io/jasmine/) and can be found at ```/tests/runner.html```
+Tests use [jasmine](https://jasmine.github.io/) and can be found at ```/tests/runner.html```
